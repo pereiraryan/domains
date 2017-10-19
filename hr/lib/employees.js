@@ -4,7 +4,7 @@ exports.getEmployee = getEmployee;
 function getEmployees (callback) {
     setTimeout(function () {
         callback(null, employeeDb);
-        }, 500);
+        }, 100);
         }
         function getEmployee (employeeId, callback) {
         getEmployees(function (error, data) {

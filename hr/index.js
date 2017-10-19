@@ -1,5 +1,8 @@
 var http = require('http');
 var employeeService = require('./lib/employees');
+var responder = require('./lib/responseGenerator');
+var staticFile = responder.staticFile('/public');
+
 http.createServer(function (req, res) {
     // A parsed url to work with in case there are parameters
     var _url;
@@ -14,15 +17,33 @@ http.createServer(function (req, res) {
     }
     if (_url = /^\/employees$/i.exec(req.url)) {
         // return a list of employees
-        res.writeHead(200);
-        return res.end('employee list');
-    } else if (_url = /^\/employees\/(\d+)$/i.exec(req.url)) {
-        // find the employee by the id in the route
-        res.writeHead(200);
-        return res.end('a single employee');
+        employeeService.getEmployees(function (error, data) {
+            if (error) {
+                // send a 500 error
+                return responder.send500(error, res);
+            }
+            // send the data with a 200 status code
+            return responder.sendJson(data, res);
+        });
+    } else if (_url = /^\/employees\/(\d+)$/i.exec(req.url)) { then 
+        added  
+         employeeService.getEmployee(_url[1], function (error, data) {
+            if (error) {
+                // send a 500 error
+                return responder.send500(error, res);
+            }
+            if (!data) {
+                // send a 404 error
+                return responder.send404(res);
+            }
+            // send the data with a 200 status code
+            return responder.sendJson(data, res);
+        });
     } else {
-        // try to send the static file
+        // try to send the static file if it exists,
         res.writeHead(200);
+        // if not, send a 404            
         res.end('static file maybe');
     }
 }).listen(1337, '127.0.0.1');
+console.log('Server running at http://127.0.0.1:1337/');
