@@ -1,0 +1,22 @@
+{
+  "name": "hr",
+  "version": "1.0.0",
+  "description": "first node app server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pereiraryan/domains.git"
+  },
+  "keywords": [
+    "domains"
+  ],
+  "author": "ryan pereira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pereiraryan/domains/issues"
+  },
+  "homepage": "https://github.com/pereiraryan/domains#readme"
+}
