@@ -1,6 +1,7 @@
 var http = require('http');
 var employeeService = require('./lib/employees');
 var responder = require('./lib/responseGenerator');
+require('./lib/connection');
 var staticFile = responder.staticFile('/public');
 
 http.createServer(function (req, res) {
@@ -25,9 +26,8 @@ http.createServer(function (req, res) {
             // send the data with a 200 status code
             return responder.sendJson(data, res);
         });
-    } else if (_url = /^\/employees\/(\d+)$/i.exec(req.url)) { then 
-        added  
-         employeeService.getEmployee(_url[1], function (error, data) {
+    } else if (_url = /^\/employees\/(\d+)$/i.exec(req.url)) { 
+             employeeService.getEmployee(_url[1], function (error, data) {
             if (error) {
                 // send a 500 error
                 return responder.send500(error, res);
